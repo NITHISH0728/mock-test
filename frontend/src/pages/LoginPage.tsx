@@ -18,10 +18,10 @@ const LoginPage = () => {
         console.log('Login attempt with', formData);
         
         // --- DEVELOPMENT BYPASS ---
-        if (formData.username === 'admin' && formData.password === '1234') {
+        if (formData.username === 'admin@gmail.com' && formData.password === '123') {
             localStorage.setItem('user', JSON.stringify({
                 _id: 1,
-                email: 'admin',
+                email: 'admin@gmail.com',
                 role: 'admin',
                 name: 'Admin',
                 profile_image: '',
@@ -31,12 +31,12 @@ const LoginPage = () => {
             return;
         }
 
-        if (formData.username === 'REG2001' && formData.password === 'R1001') {
+        if (formData.username === 'student@gmail.com' && formData.password === '123') {
             localStorage.setItem('user', JSON.stringify({
                 _id: 2,
-                email: 'alice@gmail.com',
+                email: 'student@gmail.com',
                 role: 'student',
-                name: 'Alice Smith',
+                name: 'Demo Student',
                 profile_image: '',
                 message: 'Login successful'
             }));
@@ -93,7 +93,7 @@ const LoginPage = () => {
                                 label="Username / Reg No"
                                 name="username"
                                 type="text"
-                                placeholder="Registration Number (e.g. REG2001) or admin"
+                                placeholder="admin@gmail.com or student@gmail.com"
                                 value={formData.username}
                                 onChange={handleChange}
                                 required
@@ -102,7 +102,7 @@ const LoginPage = () => {
                                 label="Password"
                                 name="password"
                                 type="password"
-                                placeholder="Roll Number (e.g. R1001) or 1234"
+                                placeholder="123"
                                 value={formData.password}
                                 onChange={handleChange}
                                 required
