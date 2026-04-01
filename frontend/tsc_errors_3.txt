@@ -1,0 +1,15 @@
+src/pages/admin/AdminHome.tsx(2,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/admin/AdminLayout.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/pages/admin/AdminLayout.tsx(8,11): error TS6133: 'location' is declared but its value is never read.
+src/pages/admin/ManageStudents.tsx(104,37): error TS2322: Type 'string' is not assignable to type 'number'.
+src/pages/admin/ManageStudents.tsx(107,37): error TS2322: Type 'string' is not assignable to type 'number'.
+src/pages/admin/Performance.tsx(2,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/AdminPage.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/pages/LandingPage.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/pages/LandingPage.tsx(5,27): error TS7031: Binding element 'className' implicitly has an 'any' type.
+src/pages/LandingPage.tsx(5,38): error TS7031: Binding element 'width' implicitly has an 'any' type.
+src/pages/LandingPage.tsx(5,45): error TS7031: Binding element 'height' implicitly has an 'any' type.
+src/pages/LandingPage.tsx(88,18): error TS2741: Property 'className' is missing in type '{ width: string; height: string; }' but required in type '{ className: any; width: any; height: any; }'.
+src/pages/LandingPage.tsx(158,22): error TS2741: Property 'className' is missing in type '{ width: string; height: string; }' but required in type '{ className: any; width: any; height: any; }'.
+src/pages/student/ViewDocuments.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/StudentPage.tsx(1,1): error TS6133: 'React' is declared but its value is never read.

@@ -1,0 +1,7 @@
+src/pages/admin/AdminHome.tsx(2,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/admin/AdminLayout.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/pages/admin/AdminLayout.tsx(8,11): error TS6133: 'location' is declared but its value is never read.
+src/pages/admin/Performance.tsx(2,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/AdminPage.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/pages/student/ViewDocuments.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/StudentPage.tsx(1,1): error TS6133: 'React' is declared but its value is never read.

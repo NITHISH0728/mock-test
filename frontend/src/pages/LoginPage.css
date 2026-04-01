@@ -1,0 +1,375 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Slab:wght@700;800;900&display=swap');
+
+/* Reset and global setup for this page */
+.login-container, .login-container * {
+    box-sizing: border-box;
+}
+
+.login-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background-color: #ffffff;
+    overflow: hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Base splits */
+.login-container .split-bg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+}
+
+.login-container .white-panel {
+    display: none; /* Just using container white bg */
+}
+
+.login-container .mustard-panel {
+    right: 0;
+    width: 50vw;
+    background-color: #EAB308;
+    z-index: 1;
+}
+
+/* Background lines for mustard panel */
+.login-container .mustard-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    /* Geometric wireframe pattern overlay */
+    background-image: url("data:image/svg+xml,%3Csvg width='800' height='800' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 0L300 200L100 400M700 800L500 600L700 400M0 200L200 400L0 600M800 600L600 400L800 200' stroke='rgba(0,0,0,0.05)' fill='none' stroke-width='2'/%3E%3Cpath d='M200 400L400 200L600 400L400 600Z' stroke='rgba(0,0,0,0.05)' fill='none' stroke-width='2'/%3E%3Cpath d='M-100 100L800 500M0 700L900 300' stroke='rgba(0,0,0,0.03)' fill='none' stroke-width='1'/%3E%3C/svg%3E");
+    background-size: cover;
+    pointer-events: none;
+}
+
+/* Sparkle Star in bottom right */
+.login-container .mustard-panel::after {
+    content: '';
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    clip-path: polygon(50% 0%, 55% 45%, 100% 50%, 55% 55%, 50% 100%, 45% 55%, 0% 50%, 45% 45%);
+    opacity: 0.9;
+}
+
+.login-container .content-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+.login-container .left-content,
+.login-container .right-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows clicking through full-screen wrappers */
+}
+
+/* Base resets for internal structural elements so we can absolute position smoothly */
+.login-container .form-wrapper,
+.login-container .branding-glass {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+/* Re-enable clicks on interactive elements */
+.login-container .login-form,
+.login-container .signup-prompt,
+.login-container .form-header,
+.login-container .forgot-link,
+.login-container .btn-primary {
+    pointer-events: auto;
+}
+
+/* Hide original elements that do not match the image text */
+.login-container .branding-title,
+.login-container .branding-subtitle {
+    display: none;
+}
+
+/* ----------- LEFT SIDE ELEMENTS ----------- */
+
+/* "Welcome Back" placed top left */
+.login-container .form-header {
+    position: absolute;
+    left: 8vw;
+    top: 8vh;
+    max-width: 400px;
+}
+
+.login-container .form-header h2 {
+    font-family: 'Roboto Slab', 'Georgia', serif; /* Heavy serif-like */
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #121212;
+    margin: 0 0 10px 0;
+}
+
+.login-container .form-header p {
+    font-size: 1rem;
+    color: #2a2a2a;
+    margin: 0;
+}
+
+/* Center bee icon on left half */
+.login-container .bee-icon {
+    position: absolute;
+    left: 25vw;
+    top: 45vh;
+    transform: translate(-50%, -50%); /* Removed scaling since SVG will have width 220px explicitly */
+}
+
+/* "DevBeeZ" Logo re-styled through pseudo-elements */
+.login-container .logo-text {
+    position: absolute;
+    left: 25vw;
+    top: calc(45vh + 110px);
+    transform: translateX(-50%);
+    font-size: 0; /* Hide orig text */
+    margin: 0;
+    text-align: right;
+    line-height: 1;
+}
+
+.login-container .logo-text::before {
+    content: 'Dev';
+    font-size: 48px;
+    font-family: 'Impact', 'Arial Black', sans-serif;
+    color: #EAB308; /* Yellow part */
+    letter-spacing: 1px;
+}
+
+.login-container .logo-text .dot {
+    font-size: 0; /* Hide the dot */
+}
+
+.login-container .logo-text .dot::after {
+    content: 'BeeZ';
+    font-size: 48px;
+    font-family: 'Impact', 'Arial Black', sans-serif;
+    color: #1a1a1a; /* Black part */
+    letter-spacing: 1px;
+}
+
+/* "</> The FullStack Hive" Subtitle via pseudo element */
+.login-container .logo-text::after {
+    content: '<\/> The FullStack Hive';
+    display: block;
+    font-size: 14px;
+    font-weight: 800;
+    color: #2a2a2a;
+    font-family: 'Inter', sans-serif;
+    margin-top: 5px;
+    text-align: right;
+    margin-right: -4px; /* Alignment tweak */
+}
+
+/* ----------- RIGHT SIDE ELEMENTS ----------- */
+
+/* The Glass Card Container using pseudo element so it isolates opacity */
+.login-container .form-wrapper::before {
+    content: '';
+    position: absolute;
+    left: 75vw;
+    top: 50vh;
+    transform: translate(-50%, -50%);
+    width: 440px;
+    height: 480px;
+    /* Frosted glass effect representing image */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.15) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    z-index: -1;
+}
+
+/* Inner form content overlaying glass */
+.login-container .login-form {
+    position: absolute;
+    left: 75vw;
+    top: calc(50vh - 15px); /* Positioned to balance elements inside glass card */
+    transform: translate(-50%, -50%);
+    width: 440px;
+    padding: 40px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.login-container .login-form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.login-container .login-form label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #2b2b2b;
+}
+
+.login-container .login-form input {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(0, 0, 0, 0.04); /* Slight dark translucent fill */
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    font-size: 15px;
+    color: #111;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.login-container .login-form input::placeholder {
+    color: rgba(0,0,0,0.4);
+}
+
+.login-container .login-form input:focus {
+    background: rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+/* Form actions positioning */
+.login-container .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -12px;
+}
+
+.login-container .forgot-link {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1a1a1a;
+    text-decoration: none;
+}
+
+.login-container .forgot-link:hover {
+    text-decoration: underline;
+}
+
+/* Custom Submit Button (Black rounding with yellow + insert) */
+.login-container .btn-primary {
+    position: relative;
+    width: 100%;
+    height: 54px;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 0; /* Hide orig wording to force exact layout */
+    cursor: pointer;
+    overflow: hidden;
+    margin-top: 10px;
+    transition: transform 0.2s;
+}
+
+.login-container .btn-primary:active {
+    transform: scale(0.98);
+}
+
+/* 'Log In' Text */
+.login-container .btn-primary::after {
+    content: 'Log In';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+}
+
+/* Yellow squircle left icon */
+.login-container .btn-primary::before {
+    content: '+';
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    bottom: 6px;
+    width: 42px;
+    background: #EAB308;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+/* Sign up prompt sits below login form over glass card */
+.login-container .signup-prompt {
+    position: absolute;
+    left: 75vw;
+    top: calc(50vh + 190px);
+    transform: translateX(-50%);
+    width: 440px;
+    text-align: center;
+    font-size: 13px;
+    color: #2a2a2a;
+}
+
+.login-container .signup-prompt a {
+    color: #000;
+    font-weight: 700;
+    text-decoration: none;
+    margin-left: 4px;
+}
+
+.login-container .signup-prompt a:hover {
+    text-decoration: underline;
+}
+
+/* Minimalist responsive overrides */
+@media (max-width: 900px) {
+    .login-container .mustard-panel {
+        width: 100vw;
+        height: 50vh;
+        top: auto;
+        bottom: 0;
+    }
+    
+    .login-container .form-wrapper::before,
+    .login-container .login-form,
+    .login-container .signup-prompt {
+        left: 50%;
+        top: 75vh;
+    }
+    
+    .login-container .login-form { top: calc(75vh - 15px); }
+    .login-container .signup-prompt { top: calc(75vh + 190px); }
+
+    .login-container .form-header,
+    .login-container .bee-icon,
+    .login-container .logo-text {
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+    }
+
+    .login-container .bee-icon { transform: translate(-50%, -50%) scale(0.8); }
+    .login-container .form-header { top: 5vh; max-width: 90%; text-align: center; left: 50%; transform: translateX(-50%); }
+    .login-container .logo-text { top: calc(45vh + 70px); }
+}

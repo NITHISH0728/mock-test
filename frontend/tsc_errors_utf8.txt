@@ -1,0 +1,79 @@
+src/App.tsx(17,8): error TS2882: Cannot find module or type declarations for side-effect import of './index.css'.
+src/components/FormInput.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/FormInput.tsx(3,22): error TS7031: Binding element 'label' implicitly has an 'any' type.
+src/components/FormInput.tsx(3,29): error TS7031: Binding element 'type' implicitly has an 'any' type.
+src/components/FormInput.tsx(3,35): error TS7031: Binding element 'name' implicitly has an 'any' type.
+src/components/FormInput.tsx(3,41): error TS7031: Binding element 'placeholder' implicitly has an 'any' type.
+src/components/FormInput.tsx(3,54): error TS7031: Binding element 'value' implicitly has an 'any' type.
+src/components/FormInput.tsx(3,61): error TS7031: Binding element 'onChange' implicitly has an 'any' type.
+src/components/FormInput.tsx(3,71): error TS7031: Binding element 'required' implicitly has an 'any' type.
+src/config.ts(1,14): error TS7022: 'API_BASE_URL' implicitly has type 'any' because it does not have a type annotation and is referenced directly or indirectly in its own initializer.
+src/config.ts(1,41): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+src/config.ts(1,69): error TS2448: Block-scoped variable 'API_BASE_URL' used before its declaration.
+src/main.tsx(4,8): error TS2882: Cannot find module or type declarations for side-effect import of './index.css'.
+src/main.tsx(7,12): error TS2345: Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Container'.
+  Type 'null' is not assignable to type 'Container'.
+src/pages/admin/AdminHome.tsx(2,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/admin/AdminLayout.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/pages/admin/AdminLayout.tsx(3,8): error TS2882: Cannot find module or type declarations for side-effect import of './admin.css'.
+src/pages/admin/AdminLayout.tsx(8,11): error TS6133: 'location' is declared but its value is never read.
+src/pages/admin/ManageStudents.tsx(2,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/admin/ManageStudents.tsx(29,25): error TS2345: Argument of type 'any[]' is not assignable to parameter of type 'SetStateAction<never[]>'.
+  Type 'any[]' is not assignable to type 'never[]'.
+    Type 'any' is not assignable to type 'never'.
+src/pages/admin/ManageStudents.tsx(38,33): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/pages/admin/ManageStudents.tsx(38,37): error TS7006: Parameter 'name' implicitly has an 'any' type.
+src/pages/admin/ManageStudents.tsx(44,28): error TS2353: Object literal may only specify known properties, and 'type' does not exist in type '(prevState: null) => null'.
+src/pages/admin/ManageStudents.tsx(47,28): error TS2353: Object literal may only specify known properties, and 'type' does not exist in type '(prevState: null) => null'.
+src/pages/admin/ManageStudents.tsx(50,24): error TS2353: Object literal may only specify known properties, and 'type' does not exist in type '(prevState: null) => null'.
+src/pages/admin/ManageStudents.tsx(64,54): error TS2339: Property 'type' does not exist on type 'never'.
+src/pages/admin/ManageStudents.tsx(65,28): error TS2339: Property 'message' does not exist on type 'never'.
+src/pages/admin/ManageStudents.tsx(104,37): error TS2322: Type 'string' is not assignable to type 'number'.
+src/pages/admin/ManageStudents.tsx(107,37): error TS2322: Type 'string' is not assignable to type 'number'.
+src/pages/admin/ManageStudents.tsx(115,40): error TS2339: Property 'id' does not exist on type 'never'.
+src/pages/admin/ManageStudents.tsx(117,68): error TS2339: Property 'name' does not exist on type 'never'.
+src/pages/admin/ManageStudents.tsx(118,40): error TS2339: Property 'emailId' does not exist on type 'never'.
+src/pages/admin/ManageStudents.tsx(118,53): error TS2339: Property 'email' does not exist on type 'never'.
+src/pages/admin/ManageStudents.tsx(119,40): error TS2339: Property 'rollNumber' does not exist on type 'never'.
+src/pages/admin/ManageStudents.tsx(120,40): error TS2339: Property 'registrationNumber' does not exist on type 'never'.
+src/pages/admin/ManageStudents.tsx(122,40): error TS2339: Property 'department' does not exist on type 'never'.
+src/pages/admin/ManageStudents.tsx(123,91): error TS2339: Property 'department' does not exist on type 'never'.
+src/pages/admin/ManageStudents.tsx(126,40): error TS2339: Property 'classSection' does not exist on type 'never'.
+src/pages/admin/ManageStudents.tsx(130,71): error TS2339: Property 'id' does not exist on type 'never'.
+src/pages/admin/ManageStudents.tsx(130,77): error TS2339: Property 'name' does not exist on type 'never'.
+src/pages/admin/OnboardStudent.tsx(2,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/admin/OnboardStudent.tsx(25,31): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/pages/admin/OnboardStudent.tsx(30,39): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/pages/admin/OnboardStudent.tsx(33,24): error TS2353: Object literal may only specify known properties, and 'type' does not exist in type '(prevState: null) => null'.
+src/pages/admin/OnboardStudent.tsx(49,28): error TS2353: Object literal may only specify known properties, and 'type' does not exist in type '(prevState: null) => null'.
+src/pages/admin/OnboardStudent.tsx(52,28): error TS2353: Object literal may only specify known properties, and 'type' does not exist in type '(prevState: null) => null'.
+src/pages/admin/OnboardStudent.tsx(55,24): error TS2353: Object literal may only specify known properties, and 'type' does not exist in type '(prevState: null) => null'.
+src/pages/admin/OnboardStudent.tsx(65,31): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/pages/admin/OnboardStudent.tsx(70,25): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/pages/admin/OnboardStudent.tsx(79,24): error TS2353: Object literal may only specify known properties, and 'type' does not exist in type '(prevState: null) => null'.
+src/pages/admin/OnboardStudent.tsx(98,28): error TS2353: Object literal may only specify known properties, and 'type' does not exist in type '(prevState: null) => null'.
+src/pages/admin/OnboardStudent.tsx(100,64): error TS2339: Property 'value' does not exist on type 'never'.
+src/pages/admin/OnboardStudent.tsx(102,28): error TS2353: Object literal may only specify known properties, and 'type' does not exist in type '(prevState: null) => null'.
+src/pages/admin/OnboardStudent.tsx(105,24): error TS2353: Object literal may only specify known properties, and 'type' does not exist in type '(prevState: null) => null'.
+src/pages/admin/OnboardStudent.tsx(119,54): error TS2339: Property 'type' does not exist on type 'never'.
+src/pages/admin/OnboardStudent.tsx(120,28): error TS2339: Property 'message' does not exist on type 'never'.
+src/pages/admin/OnboardStudent.tsx(222,62): error TS2339: Property 'click' does not exist on type 'never'.
+src/pages/admin/OnboardStudent.tsx(232,87): error TS2339: Property 'name' does not exist on type 'never'.
+src/pages/admin/OnboardStudent.tsx(233,87): error TS2339: Property 'size' does not exist on type 'never'.
+src/pages/admin/OnboardStudent.tsx(255,166): error TS2339: Property 'value' does not exist on type 'never'.
+src/pages/admin/Performance.tsx(2,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/AdminPage.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/pages/AdminPage.tsx(3,8): error TS2882: Cannot find module or type declarations for side-effect import of './LandingPage.css'.
+src/pages/LandingPage.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/pages/LandingPage.tsx(3,8): error TS2882: Cannot find module or type declarations for side-effect import of './LandingPage.css'.
+src/pages/LandingPage.tsx(5,27): error TS7031: Binding element 'className' implicitly has an 'any' type.
+src/pages/LandingPage.tsx(5,38): error TS7031: Binding element 'width' implicitly has an 'any' type.
+src/pages/LandingPage.tsx(5,45): error TS7031: Binding element 'height' implicitly has an 'any' type.
+src/pages/LandingPage.tsx(88,18): error TS2741: Property 'className' is missing in type '{ width: string; height: string; }' but required in type '{ className: any; width: any; height: any; }'.
+src/pages/LandingPage.tsx(158,22): error TS2741: Property 'className' is missing in type '{ width: string; height: string; }' but required in type '{ className: any; width: any; height: any; }'.
+src/pages/LoginPage.tsx(5,8): error TS2882: Cannot find module or type declarations for side-effect import of './LoginPage.css'.
+src/pages/student/StudentLayout.tsx(4,8): error TS2882: Cannot find module or type declarations for side-effect import of './student.css'.
+src/pages/student/TestRunner.tsx(5,8): error TS2882: Cannot find module or type declarations for side-effect import of './student.css'.
+src/pages/student/ViewDocuments.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/StudentPage.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/pages/StudentPage.tsx(3,8): error TS2882: Cannot find module or type declarations for side-effect import of './LandingPage.css'.

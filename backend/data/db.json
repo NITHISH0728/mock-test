@@ -1,0 +1,282 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "registrationNumber": "admin@gmail.com",
+      "rollNumber": "123",
+      "role": "admin",
+      "name": "Admin",
+      "department": "HQ",
+      "classSection": "A",
+      "emailId": "admin@gmail.com"
+    },
+    {
+      "id": 2,
+      "name": "Demo Student",
+      "emailId": "student@gmail.com",
+      "role": "student",
+      "department": "CSE",
+      "classSection": "A",
+      "rollNumber": "123",
+      "registrationNumber": "student@gmail.com"
+    },
+    {
+      "id": 5,
+      "name": "Diana Evans",
+      "rollNumber": "R1004",
+      "department": "EEE",
+      "registrationNumber": "REG2004",
+      "classSection": "A",
+      "emailId": "diana@gmail.com",
+      "role": "student"
+    },
+    {
+      "id": 6,
+      "name": "Ethan White",
+      "rollNumber": "R1005",
+      "department": "IT",
+      "registrationNumber": "REG2005",
+      "classSection": "B",
+      "emailId": "ethan@gmail.com",
+      "role": "student"
+    },
+    {
+      "id": 7,
+      "name": "Fiona Green",
+      "rollNumber": "R1006",
+      "department": "CSE",
+      "registrationNumber": "REG2006",
+      "classSection": "C",
+      "emailId": "fiona@gmail.com",
+      "role": "student"
+    },
+    {
+      "id": 8,
+      "name": "George Hall",
+      "rollNumber": "R1007",
+      "department": "ECE",
+      "registrationNumber": "REG2007",
+      "classSection": "A",
+      "emailId": "george@gmail.com",
+      "role": "student"
+    },
+    {
+      "id": 9,
+      "name": "Hannah King",
+      "rollNumber": "R1008",
+      "department": "EEE",
+      "registrationNumber": "REG2008",
+      "classSection": "B",
+      "emailId": "hannah@gmail.com",
+      "role": "student"
+    },
+    {
+      "id": 10,
+      "name": "Ian Lewis",
+      "rollNumber": "R1009",
+      "department": "IT",
+      "registrationNumber": "REG2009",
+      "classSection": "C",
+      "emailId": "ian@gmail.com",
+      "role": "student"
+    },
+    {
+      "id": 11,
+      "name": "Julia Martin",
+      "rollNumber": "R1010",
+      "department": "CSE",
+      "registrationNumber": "REG2010",
+      "classSection": "A",
+      "emailId": "julia@gmail.com",
+      "role": "student"
+    },
+    {
+      "id": 12,
+      "name": "Dhavanesh",
+      "emailId": "dhavanesh@gmail.com",
+      "role": "student",
+      "rollNumber": "24CS412",
+      "registrationNumber": "312324104072",
+      "department": "CSE",
+      "classSection": "A"
+    },
+    {
+      "id": 13,
+      "name": "Nithish S S",
+      "emailId": "nithish@gmail.com",
+      "role": "student",
+      "rollNumber": "24CS310",
+      "registrationNumber": "312324104195",
+      "department": "CSE",
+      "classSection": "C"
+    }
+  ],
+  "tests": [
+    {
+      "id": 1,
+      "title": "Sample Quiz Test",
+      "description": "A basic quiz to test your knowledge.",
+      "test_type": "quiz",
+      "duration_minutes": 30,
+      "created_by": 1,
+      "is_published": true,
+      "created_at": "2026-03-31T08:29:08.964Z",
+      "questions": [
+        {
+          "question_number": 1,
+          "question_text": "What is 2 + 2?",
+          "option_a": "3",
+          "option_b": "4",
+          "option_c": "5",
+          "option_d": "6",
+          "correct_option": "B",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Sample Code Test",
+      "description": "Write a program that prints 'Hello World!' to the console.",
+      "test_type": "code",
+      "duration_minutes": 60,
+      "created_by": 1,
+      "is_published": true,
+      "created_at": "2026-03-31T08:29:08.964Z",
+      "problems": [
+        {
+          "problem_number": 1,
+          "title": "Print Hello World",
+          "description": "Print exactly 'Hello World!' without the quotes.",
+          "input_format": "None",
+          "output_format": "Hello World!",
+          "constraints_text": "None",
+          "sample_input": "",
+          "sample_output": "Hello World!",
+          "marks": 10,
+          "test_cases": [
+            {
+              "input": "",
+              "expected_output": "Hello World!",
+              "is_hidden": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "sca",
+      "description": "scascac",
+      "test_type": "code",
+      "duration_minutes": 60,
+      "created_by": 1,
+      "pass_key": "123",
+      "is_published": true,
+      "created_at": "2026-04-01T05:22:19.195Z",
+      "problems": [
+        {
+          "title": "acdac",
+          "description": "ascac",
+          "input_format": "ascsac",
+          "output_format": "ascsac",
+          "constraints_text": "ascsa",
+          "sample_input": "ascsac",
+          "sample_output": "",
+          "marks": 10,
+          "test_cases": [
+            {
+              "input": "sacsa",
+              "expected_output": "scsc",
+              "is_hidden": false
+            }
+          ],
+          "problem_number": 1
+        }
+      ]
+    }
+  ],
+  "test_results": [
+    {
+      "id": 1,
+      "test_id": 1,
+      "student_id": 12,
+      "score": 5,
+      "total_marks": 30,
+      "status": "completed",
+      "submitted_at": "2026-03-31T08:45:06.817Z"
+    },
+    {
+      "id": 2,
+      "test_id": 2,
+      "student_id": 2,
+      "score": 0,
+      "total_marks": 10,
+      "status": "terminated",
+      "submitted_at": "2026-03-31T13:40:56.620Z"
+    },
+    {
+      "id": 3,
+      "test_id": 2,
+      "student_id": 2,
+      "score": 0,
+      "total_marks": 10,
+      "status": "terminated",
+      "submitted_at": "2026-03-31T13:40:57.579Z"
+    },
+    {
+      "id": 4,
+      "test_id": 2,
+      "student_id": 2,
+      "score": 0,
+      "total_marks": 10,
+      "status": "terminated",
+      "submitted_at": "2026-03-31T13:43:32.045Z"
+    },
+    {
+      "id": 5,
+      "test_id": 2,
+      "student_id": 2,
+      "score": 0,
+      "total_marks": 10,
+      "status": "terminated",
+      "submitted_at": "2026-03-31T13:43:33.169Z"
+    },
+    {
+      "id": 6,
+      "test_id": 2,
+      "student_id": 2,
+      "score": 0,
+      "total_marks": 10,
+      "status": "terminated",
+      "submitted_at": "2026-04-01T02:22:46.452Z"
+    },
+    {
+      "id": 7,
+      "test_id": 2,
+      "student_id": 2,
+      "score": 0,
+      "total_marks": 10,
+      "status": "terminated",
+      "submitted_at": "2026-04-01T02:22:47.247Z"
+    },
+    {
+      "id": 8,
+      "test_id": 1,
+      "student_id": 2,
+      "score": 1,
+      "total_marks": 1,
+      "status": "completed",
+      "submitted_at": "2026-04-01T03:25:57.795Z"
+    },
+    {
+      "id": 9,
+      "test_id": 3,
+      "student_id": 2,
+      "score": 0,
+      "total_marks": 10,
+      "status": "terminated",
+      "submitted_at": "2026-04-01T05:22:58.019Z"
+    }
+  ]
+}
