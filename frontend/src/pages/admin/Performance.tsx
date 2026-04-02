@@ -91,6 +91,11 @@ const Performance = () => {
         const matchesSec = filterSec ? String(r.student_section) === String(filterSec) : true;
         
         return matchesSearch && matchesDept && matchesSec;
+    }).sort((a: any, b: any) => {
+        if (a.test_title === b.test_title) {
+            return (b.score || 0) - (a.score || 0);
+        }
+        return (a.test_title || '').localeCompare(b.test_title || '');
     });
 
     return (
