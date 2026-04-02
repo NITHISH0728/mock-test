@@ -1137,142 +1137,296 @@ solution();
         </div>
       </header>
 
-      <main style={{ padding: '32px', flex: 1, maxWidth: '800px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
-        {quizSubmitted && (
-            <div style={{ marginBottom: '24px', background: 'rgba(16, 185, 129, 0.1)', padding: '24px', borderRadius: '10px', border: '1px solid rgba(16, 185, 129, 0.3)', textAlign: 'center' }}>
-                <h2 style={{ color: '#10b981', margin: '0 0 8px' }}>Test Completed</h2>
-                <p style={{ margin: 0, fontSize: '18px', fontWeight: 'bold' }}>Your Score: {quizScore} / {quizTotalMarks}</p>
-            </div>
-        )}
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+        {/* SIDEBAR NAVIGATION */}
+        <aside style={{ flex: '0 0 260px', background: 'var(--student-card-bg)', borderRight: '1px solid var(--student-border)', display: 'flex', flexDirection: 'column', zIndex: 10 }}>
+            <div style={{ padding: '24px', flex: 1, overflowY: 'auto' }}>
+                <h3 style={{ fontSize: '13px', fontWeight: 800, textTransform: 'uppercase', color: 'var(--student-text-muted)', margin: '0 0 16px', letterSpacing: '0.5px' }}>Question Navigator</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px' }}>
+                    {test?.questions?.map((q: any, i: number) => {
+                        const isAnswered = !!quizAnswers[q.id || q.question_number];
+                        const isActive = currentQuizQuestionIndex === i;
+                        let bgColor = 'var(--student-bg)';
+                        let textColor = 'var(--student-text-muted)';
+                        let borderColor = 'var(--student-border)';
+                        
+                        if (quizSubmitted) {
+                            const isCorrect = q.correct_option?.toLowerCase() === quizAnswers[q.id || q.question_number];
+                            if (!isAnswered) {
+                                bgColor = 'rgba(239, 68, 68, 0.05)';
+                                borderColor = 'rgba(239, 68, 68, 0.2)';
+                                textColor = '#ef4444';
+                            } else if (isCorrect) {
+                                bgColor = 'rgba(16, 185, 129, 0.15)';
+                                borderColor = '#10b981';
+                                textColor = '#10b981';
+                            } else {
+                                bgColor = 'rgba(239, 68, 68, 0.15)';
+                                borderColor = '#ef4444';
+                                textColor = '#ef4444';
+                            }
+                        } else {
+                            if (isActive) {
+                                bgColor = '#38bdf8';
+                                textColor = '#0f172a';
+                                borderColor = '#38bdf8';
+                            } else if (isAnswered) {
+                                bgColor = 'rgba(56, 189, 248, 0.1)';
+                                borderColor = '#38bdf8';
+                                textColor = '#38bdf8';
+                            }
+                        }
 
-        {test?.questions?.length && test.questions.length > 0 ? (
-          (() => {
-            const q = test.questions[currentQuizQuestionIndex];
-            if (!q) return null;
-            return (
-              <div key={q.id || q.question_number} style={{ marginBottom: '24px', background: 'var(--student-card-bg)', border: '1px solid var(--student-border)', padding: '32px', borderRadius: '10px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                   <span style={{ fontSize: '13px', fontWeight: 'bold', color: '#38bdf8', textTransform: 'uppercase' }}>
-                     Question {currentQuizQuestionIndex + 1} of {test.questions.length}
-                   </span>
-                   <span style={{ fontSize: '12px', background: 'rgba(255,255,255,0.1)', padding: '4px 8px', borderRadius: '4px' }}>
-                     {Object.keys(quizAnswers).length} / {test.questions.length} Answered
-                   </span>
+                        return (
+                            <button
+                                key={i}
+                                onClick={() => {
+                                    if (!quizSubmitted) setCurrentQuizQuestionIndex(i);
+                                    else {
+                                        const el = document.getElementById(`review-q-${i}`);
+                                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                    }
+                                }}
+                                style={{
+                                    aspectRatio: '1', borderRadius: '8px', border: `1px solid ${borderColor}`,
+                                    background: bgColor, color: textColor, fontWeight: 700, fontSize: '14px',
+                                    cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    transition: 'all 0.2s', boxShadow: isActive && !quizSubmitted ? '0 0 0 3px rgba(56, 189, 248, 0.3)' : 'none'
+                                }}
+                            >
+                                {i + 1}
+                            </button>
+                        );
+                    })}
                 </div>
-                <h3 style={{ marginTop: 0, fontSize: '18px' }}>
-                  {q.question_text}
-                </h3>
-                <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  {['a', 'b', 'c', 'd'].map(opt => {
-                    const isSelected = quizAnswers[q.id || q.question_number] === opt;
-                    const isCorrectAns = q.correct_option?.toLowerCase() === opt;
+            </div>
+            
+            <div style={{ padding: '24px', borderTop: '1px solid var(--student-border)', background: 'var(--student-bg)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                    <span style={{ fontSize: '12px', color: 'var(--student-text-muted)', fontWeight: 600 }}>Progress</span>
+                    <span style={{ fontSize: '12px', color: '#10b981', fontWeight: 800 }}>{Object.keys(quizAnswers).length} / {test?.questions?.length || 0}</span>
+                </div>
+                <div style={{ width: '100%', height: '6px', background: 'var(--student-card-bg)', borderRadius: '4px', overflow: 'hidden' }}>
+                    <div style={{ 
+                        width: `${Object.keys(quizAnswers).length / (test?.questions?.length || 1) * 100}%`, 
+                        height: '100%', background: '#10b981', transition: 'width 0.3s ease-out' 
+                    }} />
+                </div>
+            </div>
+        </aside>
+
+        {/* RIGHT CONTENT AREA */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative', overflowY: 'auto', background: 'var(--student-bg)' }}>
+          <main style={{ padding: '40px', flex: 1, width: '100%', maxWidth: '900px', margin: '0 auto', boxSizing: 'border-box' }}>
+            {quizSubmitted && (
+                <div style={{ marginBottom: '40px', background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%)', padding: '32px', borderRadius: '12px', border: '1px solid rgba(16, 185, 129, 0.3)', textAlign: 'center', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)' }}>
+                    <h2 style={{ color: '#10b981', margin: '0 0 12px', fontSize: '28px', letterSpacing: '-0.5px' }}>Assessment Completed</h2>
+                    <div style={{ display: 'inline-flex', alignItems: 'baseline', gap: '8px' }}>
+                        <span style={{ fontSize: '16px', color: 'var(--student-text-muted)' }}>Final Score:</span>
+                        <span style={{ fontSize: '32px', fontWeight: 800, color: 'var(--student-text)' }}>{quizScore}</span>
+                        <span style={{ fontSize: '18px', color: 'var(--student-text-muted)' }}>/ {quizTotalMarks} pts</span>
+                    </div>
+                </div>
+            )}
+
+            {test?.questions?.length && test.questions.length > 0 ? (
+              quizSubmitted ? (
+                /* REVIEW MODE: MAP OVER ALL QUESTIONS */
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                  {test.questions.map((q: any, i: number) => {
+                    const isAnswered = !!quizAnswers[q.id || q.question_number];
+                    const isCorrectOverall = isAnswered && q.correct_option?.toLowerCase() === quizAnswers[q.id || q.question_number];
                     
-                    let optBg = 'var(--student-bg)';
-                    let optBorder = 'var(--student-border)';
-                    let optColor = 'var(--student-text)';
-
-                    if (quizSubmitted) {
-                       if (isCorrectAns) {
-                           optBg = 'rgba(16, 185, 129, 0.15)';
-                           optBorder = '#10b981';
-                       } else if (isSelected && !isCorrectAns) {
-                           optBg = 'rgba(239, 68, 68, 0.15)';
-                           optBorder = '#ef4444';
-                       } else {
-                           optColor = 'var(--student-text-muted)';
-                       }
-                    } else if (isSelected) {
-                       optBg = 'rgba(56, 189, 248, 0.1)';
-                       optBorder = '#38bdf8';
-                    }
-
                     return (
-                      <label key={opt} style={{ 
-                          display: 'flex', alignItems: 'center', gap: '8px', 
-                          cursor: quizSubmitted ? 'default' : 'pointer', 
-                          background: optBg, padding: '12px', borderRadius: '6px', border: `1px solid ${optBorder}`,
-                          color: optColor, transition: '0.2s'
-                      }}>
-                          <input 
-                          type="radio" 
-                          name={`question-${q.id || q.question_number}`} 
-                          value={opt} 
-                          checked={isSelected}
-                          onChange={() => {
-                              if (!quizSubmitted) {
-                                  setQuizAnswers(prev => ({...prev, [q.id || q.question_number]: opt}))
-                              }
-                          }}
-                          disabled={quizSubmitted}
-                          />
-                          <span>{q[`option_${opt}`]}</span>
-                          {quizSubmitted && isCorrectAns && <span style={{ marginLeft: 'auto', color: '#10b981', fontWeight: 'bold' }}>✓ Correct</span>}
-                          {quizSubmitted && isSelected && !isCorrectAns && <span style={{ marginLeft: 'auto', color: '#ef4444', fontWeight: 'bold' }}>✗ Incorrect</span>}
-                      </label>
+                        <div key={q.id || q.question_number} id={`review-q-${i}`} style={{ background: 'var(--student-card-bg)', border: `1px solid ${isCorrectOverall ? 'rgba(16, 185, 129, 0.4)' : 'rgba(239, 68, 68, 0.4)'}`, padding: '40px', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                                <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--student-text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                    Question {i + 1}
+                                </span>
+                                {isCorrectOverall ? (
+                                    <span style={{ background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', padding: '6px 12px', borderRadius: '6px', fontSize: '13px', fontWeight: 700 }}>✓ +{q.marks || 1} pts</span>
+                                ) : (
+                                    <span style={{ background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', padding: '6px 12px', borderRadius: '6px', fontSize: '13px', fontWeight: 700 }}>✗ 0 pts</span>
+                                )}
+                            </div>
+                            <h3 style={{ marginTop: 0, fontSize: '20px', lineHeight: '1.5', color: 'var(--student-text)', marginBottom: '24px' }}>
+                                {q.question_text}
+                            </h3>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                                {['a', 'b', 'c', 'd'].map(opt => {
+                                    const isSelected = quizAnswers[q.id || q.question_number] === opt;
+                                    const isCorrectAns = q.correct_option?.toLowerCase() === opt;
+                                    
+                                    let optBg = 'var(--student-bg)';
+                                    let optBorder = 'var(--student-border)';
+                                    let optColor = 'var(--student-text-muted)';
+                                    let ring = 'none';
+
+                                    if (isCorrectAns) {
+                                        optBg = 'rgba(16, 185, 129, 0.1)';
+                                        optBorder = '#10b981';
+                                        optColor = '#10b981';
+                                        ring = '0 0 0 2px rgba(16, 185, 129, 0.2)';
+                                    } else if (isSelected && !isCorrectAns) {
+                                        optBg = 'rgba(239, 68, 68, 0.08)';
+                                        optBorder = '#ef4444';
+                                        optColor = '#ef4444';
+                                    }
+
+                                    return (
+                                        <div key={opt} style={{ 
+                                            display: 'flex', alignItems: 'center', gap: '16px', 
+                                            background: optBg, padding: '16px 20px', borderRadius: '8px', border: `1px solid ${optBorder}`,
+                                            color: optColor, boxShadow: ring
+                                        }}>
+                                            <div style={{ 
+                                                width: '20px', height: '20px', borderRadius: '50%', flexShrink: 0,
+                                                border: `2px solid ${isSelected ? optBorder : 'var(--student-border)'}`,
+                                                background: isSelected ? optBorder : 'transparent',
+                                                display: 'flex', alignItems: 'center', justifyContent: 'center'
+                                            }}>
+                                                {isSelected && <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--student-card-bg)' }}/>}
+                                            </div>
+                                            <span style={{ fontSize: '15px', fontWeight: isSelected || isCorrectAns ? 600 : 400 }}>{q[`option_${opt}`]}</span>
+                                            {isCorrectAns && <span style={{ marginLeft: 'auto', color: '#10b981', fontWeight: 800, fontSize: '13px', textTransform: 'uppercase' }}>Correct Answer</span>}
+                                            {isSelected && !isCorrectAns && <span style={{ marginLeft: 'auto', color: '#ef4444', fontWeight: 800, fontSize: '13px', textTransform: 'uppercase' }}>Your Answer</span>}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
                     );
                   })}
                 </div>
+              ) : (
+                /* INTERACTIVE MODE: MAP JUST ONE QUESTION */
+                (() => {
+                  const q = test.questions[currentQuizQuestionIndex];
+                  if (!q) return null;
+                  return (
+                    <div key={q.id || q.question_number} style={{ background: 'var(--student-card-bg)', border: '1px solid var(--student-border)', padding: '48px', borderRadius: '16px', boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)', minHeight: '400px', display: 'flex', flexDirection: 'column' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+                        <span style={{ fontSize: '14px', fontWeight: 800, color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                          Question {currentQuizQuestionIndex + 1}
+                        </span>
+                        <span style={{ fontSize: '13px', background: 'rgba(56,189,248,0.1)', color: '#38bdf8', padding: '6px 12px', borderRadius: '6px', fontWeight: 700 }}>
+                          {q.marks || 1} points
+                        </span>
+                      </div>
+                      <h3 style={{ marginTop: 0, fontSize: '24px', lineHeight: '1.4', color: 'var(--student-text)', marginBottom: '32px', fontWeight: 600 }}>
+                        {q.question_text}
+                      </h3>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', flex: 1 }}>
+                        {['a', 'b', 'c', 'd'].map(opt => {
+                          const isSelected = quizAnswers[q.id || q.question_number] === opt;
+                          
+                          return (
+                            <label key={opt} style={{ 
+                                display: 'flex', alignItems: 'center', gap: '16px', 
+                                cursor: 'pointer', 
+                                background: isSelected ? 'rgba(56, 189, 248, 0.08)' : 'var(--student-bg)', 
+                                padding: '18px 24px', borderRadius: '10px', 
+                                border: `2px solid ${isSelected ? '#38bdf8' : 'var(--student-border)'}`,
+                                color: isSelected ? '#38bdf8' : 'var(--student-text)',
+                                transition: 'all 0.2s', boxShadow: isSelected ? '0 4px 12px rgba(56,189,248,0.15)' : 'none',
+                                transform: 'translateY(0)'
+                            }}
+                            onMouseEnter={(e) => { if(!isSelected) e.currentTarget.style.borderColor = '#475569'; }}
+                            onMouseLeave={(e) => { if(!isSelected) e.currentTarget.style.borderColor = 'var(--student-border)'; }}
+                            >
+                                <input 
+                                type="radio" 
+                                name={`question-${q.id || q.question_number}`} 
+                                value={opt} 
+                                checked={isSelected}
+                                onChange={() => {
+                                    setQuizAnswers(prev => ({...prev, [q.id || q.question_number]: opt}));
+                                }}
+                                style={{
+                                    appearance: 'none', width: '22px', height: '22px', borderRadius: '50%',
+                                    border: `2px solid ${isSelected ? '#38bdf8' : '#64748b'}`,
+                                    outline: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    background: isSelected ? '#38bdf8' : 'transparent', transition: 'all 0.2s'
+                                }}
+                                />
+                                {/* Add custom inner circle for radio */}
+                                {isSelected && <div style={{ position: 'absolute', left: '29px', width: '8px', height: '8px', background: 'var(--student-bg)', borderRadius: '50%', pointerEvents: 'none' }}/>}
+                                
+                                <span style={{ fontSize: '16px', fontWeight: isSelected ? 600 : 400, paddingLeft: '8px' }}>{q[`option_${opt}`]}</span>
+                            </label>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })()
+              )
+            ) : (
+              <div style={{ marginTop: '24px', background: 'var(--student-card-bg)', border: '1px solid var(--student-border)', padding: '48px', borderRadius: '12px', textAlign: 'center' }}>
+                <p style={{ color: 'var(--student-text-muted)', fontSize: '16px' }}>No questions available for this test.</p>
               </div>
-            );
-          })()
-        ) : (
-          <div style={{ marginTop: '24px', background: 'var(--student-card-bg)', border: '1px solid var(--student-border)', padding: '32px', borderRadius: '10px', textAlign: 'center' }}>
-            <p style={{ color: 'var(--student-text-muted)', fontSize: '15px' }}>No questions available for this test.</p>
-          </div>
-        )}
-      </main>
+            )}
+          </main>
 
-      <footer style={{ padding: '16px 32px', background: 'var(--student-card-bg)', borderTop: '1px solid var(--student-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', bottom: 0, boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)' }}>
-         {!quizSubmitted && test?.questions && (
-            <div style={{ display: 'flex', gap: '12px' }}>
-               <button 
-                  disabled={currentQuizQuestionIndex === 0} 
-                  onClick={() => setCurrentQuizQuestionIndex(prev => prev - 1)}
-                  style={{ padding: '8px 16px', borderRadius: '6px', cursor: currentQuizQuestionIndex === 0 ? 'not-allowed' : 'pointer', background: currentQuizQuestionIndex === 0 ? '#1e293b' : '#334155', color: currentQuizQuestionIndex === 0 ? '#64748b' : 'white', border: 'none', fontWeight: 'bold' }}
-               >
-                  ← Previous
-               </button>
-               <button 
-                  disabled={currentQuizQuestionIndex === test.questions.length - 1} 
-                  onClick={() => setCurrentQuizQuestionIndex(prev => prev + 1)}
-                  style={{ padding: '8px 16px', borderRadius: '6px', cursor: currentQuizQuestionIndex === test.questions.length - 1 ? 'not-allowed' : 'pointer', background: currentQuizQuestionIndex === test.questions.length - 1 ? '#1e293b' : '#334155', color: currentQuizQuestionIndex === test.questions.length - 1 ? '#64748b' : 'white', border: 'none', fontWeight: 'bold' }}
-               >
-                  Next →
-               </button>
+          <footer style={{ 
+              padding: '24px 40px', background: 'var(--student-card-bg)', borderTop: '1px solid var(--student-border)', 
+              display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', bottom: 0, zIndex: 10,
+              boxShadow: '0 -10px 30px rgba(0,0,0,0.15)' 
+          }}>
+            {!quizSubmitted && test?.questions ? (
+                <div style={{ display: 'flex', gap: '16px' }}>
+                  <button 
+                      disabled={currentQuizQuestionIndex === 0} 
+                      onClick={() => setCurrentQuizQuestionIndex(prev => prev - 1)}
+                      style={{ padding: '12px 24px', borderRadius: '8px', cursor: currentQuizQuestionIndex === 0 ? 'not-allowed' : 'pointer', background: currentQuizQuestionIndex === 0 ? 'var(--student-bg)' : '#1e293b', color: currentQuizQuestionIndex === 0 ? '#475569' : '#f8fafc', border: `1px solid ${currentQuizQuestionIndex === 0 ? 'var(--student-border)' : '#334155'}`, fontWeight: 700, fontSize: '14px', transition: 'all 0.2s' }}
+                  >
+                      ← Previous
+                  </button>
+                  <button 
+                      disabled={currentQuizQuestionIndex === test.questions.length - 1} 
+                      onClick={() => setCurrentQuizQuestionIndex(prev => prev + 1)}
+                      style={{ padding: '12px 24px', borderRadius: '8px', cursor: currentQuizQuestionIndex === test.questions.length - 1 ? 'not-allowed' : 'pointer', background: currentQuizQuestionIndex === test.questions.length - 1 ? 'var(--student-bg)' : '#38bdf8', color: currentQuizQuestionIndex === test.questions.length - 1 ? '#475569' : '#0f172a', border: `1px solid ${currentQuizQuestionIndex === test.questions.length - 1 ? 'var(--student-border)' : '#38bdf8'}`, fontWeight: 800, fontSize: '14px', transition: 'all 0.2s', boxShadow: currentQuizQuestionIndex === test.questions.length - 1 ? 'none' : '0 4px 12px rgba(56,189,248,0.3)' }}
+                  >
+                      Next Question →
+                  </button>
+                </div>
+            ) : <div/>}
+            
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              {!quizSubmitted ? (
+                  <button 
+                      className="btn-accent" 
+                      style={{ 
+                        width: 'auto', padding: '14px 32px', fontSize: '15px', fontWeight: 800, letterSpacing: '0.5px', textTransform: 'uppercase',
+                        backgroundColor: Object.keys(quizAnswers).length === (test?.questions?.length || 0) ? '#10b981' : 'var(--student-bg)', 
+                        color: Object.keys(quizAnswers).length === (test?.questions?.length || 0) ? '#0f172a' : '#475569',
+                        boxShadow: Object.keys(quizAnswers).length === (test?.questions?.length || 0) ? '0 4px 20px rgba(16,185,129,0.4)' : 'none',
+                        border: Object.keys(quizAnswers).length === (test?.questions?.length || 0) ? 'none' : '1px solid var(--student-border)',
+                        cursor: Object.keys(quizAnswers).length === (test?.questions?.length || 0) ? 'pointer' : 'not-allowed',
+                        transition: 'all 0.3s'
+                      }} 
+                      onClick={() => {
+                        if (Object.keys(quizAnswers).length !== (test?.questions?.length || 0)) {
+                            return;
+                        }
+                        setShowConfirmModal(true);
+                      }}
+                      disabled={Object.keys(quizAnswers).length !== (test?.questions?.length || 0)}
+                  >
+                      Submit Assessment
+                  </button>
+              ) : (
+                  <button className="btn-accent" style={{ width: 'auto', padding: '14px 32px', fontSize: '15px', fontWeight: 800, backgroundColor: '#38bdf8', color: '#0f172a', boxShadow: '0 4px 20px rgba(56,189,248,0.3)' }} onClick={() => {
+                      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+                      navigate('/student');
+                  }}>
+                      Return to Dashboard
+                  </button>
+              )}
             </div>
-         )}
-         
-         <div style={{ display: 'flex', justifyContent: 'flex-end', flex: 1 }}>
-           {!quizSubmitted ? (
-               <button 
-                  className="btn-accent" 
-                  style={{ 
-                     width: 'auto', 
-                     backgroundColor: Object.keys(quizAnswers).length === (test?.questions?.length || 0) ? '#10b981' : '#0F172A', 
-                     opacity: Object.keys(quizAnswers).length === (test?.questions?.length || 0) ? 1 : 0.5,
-                     cursor: Object.keys(quizAnswers).length === (test?.questions?.length || 0) ? 'pointer' : 'not-allowed'
-                  }} 
-                  onClick={() => {
-                     if (Object.keys(quizAnswers).length !== (test?.questions?.length || 0)) {
-                         alert('Please answer all questions before submitting.');
-                         return;
-                     }
-                     setShowConfirmModal(true);
-                  }}
-                  disabled={Object.keys(quizAnswers).length !== (test?.questions?.length || 0)}
-               >
-                  Submit Assessment
-               </button>
-           ) : (
-               <button className="btn-accent" style={{ width: 'auto', backgroundColor: '#3b82f6' }} onClick={() => {
-                   if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
-                   navigate('/student');
-               }}>
-                  Return to Dashboard
-               </button>
-           )}
-         </div>
-      </footer>
+          </footer>
+        </div>
+      </div>
 
       {showConfirmModal && (
         <div style={{ 
