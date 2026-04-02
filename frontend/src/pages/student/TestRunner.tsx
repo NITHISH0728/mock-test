@@ -102,7 +102,7 @@ const TestRunner: React.FC = () => {
   const [problemPassStatus, setProblemPassStatus] = useState<Record<number, boolean>>({});
 
   // Anti-Cheat
-  const { enterFullscreen } = useAntiCheat({
+  const { enterFullscreen, disable: disableAntiCheat } = useAntiCheat({
     maxTabSwitches: 2,
     maxFullscreenEscapes: 2,
     onWarning: (reason: string, warningsLeft: number) => {
@@ -362,6 +362,7 @@ solution();
 
   // ── Force submit (for anti-cheat / time-up) ──
   const handleFinalSubmit = async (force: boolean = false) => {
+    disableAntiCheat();
     try {
       const storedUser = localStorage.getItem('user');
       const user = storedUser ? JSON.parse(storedUser) : null;

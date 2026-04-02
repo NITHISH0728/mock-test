@@ -104,9 +104,15 @@ export function useAntiCheat({
     }
   };
 
+  // Disable anti-cheat (call before intentional submission/exit)
+  const disable = () => {
+    isTerminated.current = true;
+  };
+
   return {
     tabSwitches,
     fullscreenEscapes,
-    enterFullscreen
+    enterFullscreen,
+    disable
   };
 }
