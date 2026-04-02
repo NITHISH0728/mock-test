@@ -87,9 +87,13 @@ app.post('/api/login', (req, res) => {
         const { username, password } = req.body;
         const db = readDb();
 
-        const user = db.users.find(u => u.emailId === username);
+        const usernameLower = username.toLowerCase().trim();
+        const user = db.users.find(u => 
+            (u.emailId && u.emailId.toLowerCase().trim() === usernameLower) || 
+            (u.registrationNumber && u.registrationNumber.toLowerCase().trim() === usernameLower)
+        );
 
-        if (user && user.registrationNumber === password) {
+        if (user && user.registrationNumber.trim() === password.trim()) {
             res.json({
                 _id: user.id,
                 email: user.emailId,

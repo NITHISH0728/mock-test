@@ -40,7 +40,7 @@ const ManageTests = () => {
     return (
         <div>
             <div className="admin-page-header">
-                <h1 className="admin-greeting">Manage Quizzes</h1>
+                <h1 className="admin-page-title">Manage Tests</h1>
                 <p className="admin-greeting-sub">Review and delete existing quizzes and code tests.</p>
             </div>
 

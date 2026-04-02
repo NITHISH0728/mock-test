@@ -22,7 +22,7 @@ module.exports = () => {
             // Enrich results
             results = results.map(tr => {
                 const student = db.users.find(u => u.id === tr.student_id) || {};
-                const test = db.tests.find(t => t.id === tr.test_id) || {};
+                const test = db.tests.find(t => String(t.id) === String(tr.test_id)) || {};
                 
                 return {
                     ...tr,
@@ -74,7 +74,7 @@ module.exports = () => {
             // Enrich results
             results = results.map(tr => {
                 const student = db.users.find(u => u.id === tr.student_id) || {};
-                const test = db.tests.find(t => t.id === tr.test_id) || {};
+                const test = db.tests.find(t => String(t.id) === String(tr.test_id)) || {};
                 
                 return {
                     "Student Name": student.name || 'Unknown',

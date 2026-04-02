@@ -101,6 +101,9 @@ const TestRunner: React.FC = () => {
   // Track which problems have all test cases passed
   const [problemPassStatus, setProblemPassStatus] = useState<Record<number, boolean>>({});
 
+  // Accumulate scores for code tests
+  const problemScoresRef = useRef<Record<number, number>>({});
+
   // Anti-Cheat
   const { enterFullscreen, disable: disableAntiCheat } = useAntiCheat({
     maxTabSwitches: 2,
@@ -336,16 +339,13 @@ solution();
       const data = await response.json();
 
       if (response.ok) {
+        problemScoresRef.current[currentProblemIndex] = data.score;
         setConsoleOutput(`✅ ${data.message}\nScore: ${data.score}/${data.total_marks}`);
         
-        // If single problem test, navigate back
+        // If single problem test, call final submit directly
         if (test.problems && test.problems.length <= 1) {
           setTimeout(() => {
-            if (document.fullscreenElement) {
-              document.exitFullscreen().catch(() => {});
-            }
-            navigate('/student');
-            alert(`Assessment submitted! Score: ${data.score}/${data.total_marks}`);
+            handleFinalSubmit(false);
           }, 1500);
         } else {
           alert(`Problem submitted! Score: ${data.score}/${data.total_marks}`);
@@ -369,19 +369,22 @@ solution();
       if (!user || !test) return;
 
       let score = 0;
-      let total_marks = test.problems?.reduce((sum, p) => sum + (p.marks || 10), 0) || 10;
+      let total_marks = 10;
 
       if (test.test_type === 'quiz' && test.questions) {
-          total_marks = test.questions.reduce((sum, q: any) => sum + (q.marks || 1), 0);
+          total_marks = test.questions.reduce((sum, q: any) => sum + Number(q.marks || 1), 0);
           score = test.questions.reduce((sum, q: any) => {
               const selected = quizAnswers[q.id || q.question_number];
               if (selected && selected.toLowerCase() === q.correct_option?.toLowerCase()) {
-                  return sum + (q.marks || 1);
+                  return sum + Number(q.marks || 1);
               }
               return sum;
           }, 0);
           setQuizScore(score);
           setQuizTotalMarks(total_marks);
+      } else if (test.test_type === 'code' && test.problems) {
+          total_marks = test.problems.reduce((sum, p) => sum + Number(p.marks || 10), 0) || 10;
+          score = test.problems.reduce((sum, _p, index) => sum + Number(problemScoresRef.current[index] || 0), 0);
       }
 
       await fetch(`${API_BASE}/api/results`, {

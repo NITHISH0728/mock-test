@@ -244,26 +244,7 @@ module.exports = () => {
             const score = testCases.length > 0 
                 ? Math.round((passedCount / testCases.length) * totalMarks * 100) / 100
                 : 0;
-
-            // Save result to database
-            const newResultId = db.test_results.length > 0 
-                ? Math.max(...db.test_results.map(tr => tr.id)) + 1 
-                : 1;
-
-            const newResult = {
-                id: newResultId,
-                test_id: parseInt(testId),
-                student_id: parseInt(studentId),
-                score: score,
-                total_marks: totalMarks,
-                status: passedCount === testCases.length ? 'completed' : 'partial',
-                submitted_at: new Date().toISOString()
-            };
-
-            const { writeDb } = require('../jsonDb');
-            const freshDb = readDb();
-            freshDb.test_results.push(newResult);
-            writeDb(freshDb);
+            
 
             res.json({
                 score,
